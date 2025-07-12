@@ -47,7 +47,7 @@ weighted avg       0.85      0.86      0.85     15060
 
 1. Wczytanie danych z Kaggle.
 2. Usunięcie rekordów z brakującymi wartościami (`?`).
-3. Przekształcenie zmiennych kategorycznych do wartości liczbowych za pomocą mapowania (`Label Encoding` z kontrolowaną kolejnością).
+3. Przekształcenie zmiennych kategorycznych do wartości liczbowych za pomocą mapowania (`Label Encoding` z kontrolowaną kolejnością, np:klasa robotnicza przez stabliność i z preferencją publicznego sektora, status cywilny przez społeczno-ekonomiczną preferencje, kraj przez rozwój ekonomiczny).
 4. Podział zbioru danych na dane treningowe (30162 rekordy) i testowe (15060 rekordów).
 5. Konwersja wszystkich danych na `int32` dla optymalizacji pamięci.
 
