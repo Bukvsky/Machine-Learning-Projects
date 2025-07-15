@@ -92,4 +92,4 @@ weighted avg       0.85      0.86      0.85     15060
 ## ✍️ Autor
 
 Projekt wykonany w ramach zadania klasyfikacji binarnej.  
-Autor: *[Twoje Imię i Nazwisko]*
+Autor: igor bukowski
