@@ -1,36 +1,30 @@
-# Analiza danych: Adult Income Dataset (Census Income)
+Data Analysis: Adult Income Dataset (Census Income)
+📋 Project Description
+The goal of this project is to classify individuals' income based on demographic data collected by the US Census Bureau. The target variable is income — whether a person earns more than 50K annually (>50K) or not (<=50K).
 
-## 📋 Opis projektu
+The project uses the Adult Income Dataset available on Kaggle, originally developed by Ronny Kohavi and Barry Becker.
 
-Celem projektu jest klasyfikacja dochodów osób na podstawie danych demograficznych zebranych przez US Census Bureau. Przewidywana zmienna to `income` – czy dana osoba zarabia więcej niż 50K rocznie (`>50K`) czy nie (`<=50K`).
+🧠 Classification Methods Used
+This project applies three classic machine learning algorithms:
 
-Projekt opiera się na zbiorze danych **Adult Income Dataset** dostępnym na [Kaggle](https://www.kaggle.com/datasets/wenruliu/adult-income-dataset), który został pierwotnie opracowany przez Ronny’ego Kohaviego i Barry’ego Beckera.
+Decision Tree (DecisionTreeClassifier)
 
----
+Naive Bayes (manual implementation)
 
-## 🧠 Wykorzystane metody klasyfikacji
+K-Nearest Neighbors (KNN)
 
-W projekcie zastosowano trzy klasyczne algorytmy uczenia maszynowego:
+📈 Results
+Model	Accuracy	>50K Class F1-score	Remarks
+KNN	0.7818	0.63	Good results, but worse than Bayes and Tree
+Naive Bayes	0.8566	0.69	Highest accuracy, good precision
+Decision Tree	0.8106	0.63	Balanced trade-off between precision and recall
 
-- **Drzewo decyzyjne (`DecisionTreeClassifier`)**
-- **Naive Bayes (ręczna implementacja modelu)**
-- **K-Nearest Neighbors (`KNN`)**
-
----
-
-## 📈 Wyniki
-
-| Model               | Accuracy | Klasa `>50K` F1-score | Uwagi |
-|---------------------|----------|------------------------|--------|
-| KNN                 | 0.7818   | 0.63                   | Dobre wyniki, ale gorsze niż Bayes i Drzewo |
-| Naive Bayes         | 0.8566   | 0.69                   | Najwyższa dokładność, dobra precyzja |
-| Drzewo decyzyjne    | 0.8106   | 0.63                   | Poprawny kompromis precyzja/czułość |
-
-#### Przykładowy raport klasyfikacji (Naive Bayes):
-
-```
-Dokładność: 0.8566
-Raport klasyfikacji:
+Sample Classification Report (Naive Bayes):
+markdown
+Kopiuj
+Edytuj
+Accuracy: 0.8566
+Classification Report:
               precision    recall  f1-score   support
 
        <=50K       0.88      0.93      0.91     11285
@@ -39,57 +33,53 @@ Raport klasyfikacji:
     accuracy                           0.86     15060
    macro avg       0.82      0.78      0.80     15060
 weighted avg       0.85      0.86      0.85     15060
-```
+🧼 Data Processing
+Loading data from Kaggle.
 
----
+Removing records with missing values (?).
 
-## 🧼 Przetwarzanie danych
+Encoding categorical variables into numeric values using mapping (Label Encoding with controlled order, e.g., working class based on stability and public sector preference, marital status based on socio-economic preference, country based on economic development).
 
-1. Wczytanie danych z Kaggle.
-2. Usunięcie rekordów z brakującymi wartościami (`?`).
-3. Przekształcenie zmiennych kategorycznych do wartości liczbowych za pomocą mapowania (`Label Encoding` z kontrolowaną kolejnością, np:klasa robotnicza przez stabliność i z preferencją publicznego sektora, status cywilny przez społeczno-ekonomiczną preferencje, kraj przez rozwój ekonomiczny).
-4. Podział zbioru danych na dane treningowe (30162 rekordy) i testowe (15060 rekordów).
-5. Konwersja wszystkich danych na `int32` dla optymalizacji pamięci.
+Splitting the dataset into training data (30,162 records) and test data (15,060 records).
 
----
+Converting all data to int32 to optimize memory usage.
 
-## 🔧 Wykorzystane biblioteki
+🔧 Libraries Used
+pandas, numpy
 
-- `pandas`, `numpy`
-- `sklearn.tree.DecisionTreeClassifier`
-- `sklearn.metrics` – accuracy, classification report
-- `kagglehub` – do pobierania zbioru danych
-- Implementacja Bayesa i KNN była częściowo ręczna (Bayes – bez użycia `sklearn.naive_bayes`)
+sklearn.tree.DecisionTreeClassifier
 
----
+sklearn.metrics – accuracy, classification report
 
-## 📂 Struktura kodu
+kagglehub – for dataset downloading
 
-- Przetwarzanie danych (`data cleaning`, encoding)
-- Trening i predykcja: Drzewo Decyzyjne (z pruningiem), Naive Bayes (manualny), KNN
-- Ewaluacja każdego modelu: `accuracy`, `classification_report`
-- Mapowanie kategoryczne z zachowaniem sensownej kolejności społeczno-ekonomicznej
+Bayes and KNN implementations were partially manual (Bayes without sklearn.naive_bayes)
 
----
+📂 Code Structure
+Data processing (cleaning, encoding)
 
-## 📊 Wnioski
+Training and prediction: Decision Tree (with pruning), Naive Bayes (manual), KNN
 
-- **Naive Bayes** uzyskał najlepszy wynik dokładności (ponad 85%).
-- Dane są silnie niezbalansowane (`<=50K`: ~76%, `>50K`: ~24%).
-- Modele różnie radzą sobie z klasą mniejszościową – precyzja dla `>50K` była najniższa w KNN.
-- Przemyślane mapowanie kategoryczne (np. poziomy edukacji) poprawiło jakość predykcji.
+Evaluation of each model: accuracy, classification_report
 
----
+Categorical mapping maintaining sensible socio-economic order
 
-## 📁 Źródła
+📊 Conclusions
+Naive Bayes achieved the highest accuracy (over 85%).
 
-- Dataset: [Adult Income Dataset – Kaggle](https://www.kaggle.com/datasets/wenruliu/adult-income-dataset)
-- Źródło oryginalne: UCI Machine Learning Repository
-- Referencja naukowa: Kohavi, R. (1996). *Scaling Up the Accuracy of Naive-Bayes Classifiers: a Decision-Tree Hybrid.*
+The data is strongly imbalanced (<=50K: ~76%, >50K: ~24%).
 
----
+Models vary in handling the minority class — precision for >50K was lowest with KNN.
 
-## ✍️ Autor
+Thoughtful categorical mapping (e.g., education levels) improved prediction quality.
 
-Projekt wykonany w ramach zadania klasyfikacji binarnej.  
-Autor: igor bukowski
+📁 Sources
+Dataset: Adult Income Dataset – Kaggle
+
+Original source: UCI Machine Learning Repository
+
+Scientific reference: Kohavi, R. (1996). Scaling Up the Accuracy of Naive-Bayes Classifiers: a Decision-Tree Hybrid.
+
+✍️ Author
+Project completed as a binary classification task.
+Author: Igor Bukowski
