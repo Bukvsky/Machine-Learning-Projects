@@ -35,8 +35,6 @@ project_root/
 └── README.md
 ```
 
-## 🚀 Getting Started
-
 
 ## 🧠 Model Architecture
 
