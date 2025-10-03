@@ -172,7 +172,7 @@ class MonteCarloSimulator:
 
 
 ### Helping visualization
-    def plot_simulations(price_paths:np.ndarray,
+def plot_simulations(price_paths:np.ndarray,
                          stats: Dict[str,np.ndarray],
                          ticker: str,
                          n_paths_to_plot: int = 100):
@@ -183,7 +183,8 @@ class MonteCarloSimulator:
         """
         import matplotlib.pyplot as plt
         n_days = price_paths.shape[1]
-        days = np.arrange(n_days)
+        days = np.arange(n_days)
+
 
         fig, ax = plt.subplots(figsize=(14,7))
         n_to_plot = min(n_paths_to_plot, price_paths.shape[0])
@@ -205,29 +206,36 @@ class MonteCarloSimulator:
         plt.tight_layout()
         plt.show()
 
-    def plot_final_distribution(price_paths: np.ndarray, ticker: str):
-        """
-        Drawing final distribution Monte Carlo
-        """
-        import matplotlib.pyplot as plt
+def plot_final_distribution(price_paths: np.ndarray, ticker: str, cut_outliers: bool = True):
+    """
+    Drawing final distribution Monte Carlo
+    """
+    import matplotlib.pyplot as plt
+    import numpy as np
 
-        final_prices = price_paths[:, -1]
+    final_prices = price_paths[:, -1]
 
-        fig, ax = plt.subplots(figsize=(10, 6))
+    fig, ax = plt.subplots(figsize=(10, 6))
 
-        ax.hist(final_prices, bins=100, alpha=0.7, edgecolor='black', density=True)
-        ax.axvline(final_prices.mean(), color='green', linestyle='--',
-                   linewidth=2, label=f'Mean: ${final_prices.mean():.2f}')
-        ax.axvline(np.median(final_prices), color='blue', linestyle='--',
-                   linewidth=2, label=f'Median: ${np.median(final_prices):.2f}')
+    ax.hist(final_prices, bins=100, alpha=0.7, edgecolor='black', density=True)
+    ax.axvline(final_prices.mean(), color='green', linestyle='--',
+               linewidth=2, label=f'Mean: ${final_prices.mean():.2f}')
+    ax.axvline(np.median(final_prices), color='blue', linestyle='--',
+               linewidth=2, label=f'Median: ${np.median(final_prices):.2f}')
 
-        ax.set_title(f'{ticker} - Final price distribution', fontsize=16, fontweight='bold')
-        ax.set_xlabel('End price ($)')
-        ax.set_ylabel('Probability density')
-        ax.legend()
-        ax.grid(True, alpha=0.3)
-        plt.tight_layout()
-        plt.show()
+    if cut_outliers:
+
+        low, high = np.percentile(final_prices, [1, 99])
+        ax.set_xlim(low, high)
+
+    ax.set_title(f'{ticker} - Final price distribution', fontsize=16, fontweight='bold')
+    ax.set_xlabel('End price ($)')
+    ax.set_ylabel('Probability density')
+    ax.legend()
+    ax.grid(True, alpha=0.3)
+    plt.tight_layout()
+    plt.show()
+
 
 
 if __name__ == '__main__':
