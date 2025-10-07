@@ -1,3 +1,5 @@
+import math
+
 import numpy as np
 import pandas as pd
 from typing import Tuple, Dict
@@ -46,8 +48,8 @@ class MonteCarloSimulator:
 
         #mu_annual = mu_daily * 252
         # sigma_annual = daily_sigma*252
-        annual_mu = daily_mu * 252
-        annual_sigma = daily_sigma * 252
+        annual_mu = daily_mu * math.sqrt(252)
+        annual_sigma = daily_sigma * math.sqrt(252)
 
         self.mu = annual_mu
         self.sigma = annual_sigma
@@ -80,8 +82,11 @@ class MonteCarloSimulator:
 
         logger.info(f'Starting {n_simulations} simulations on {T} days')
         n_steps = T
-        Z = np.random.standard_normal((n_simulations,n_steps))
-        drift = (mu-0.5*sigma**2)*dt
+        daily_dt = 1 / 252  # to jest poprawne
+
+        Z = np.random.standard_normal((n_simulations, n_steps))
+
+        drift = (mu - 0.5 * sigma ** 2) * daily_dt
         diffusion = sigma*np.sqrt(dt)*Z
         log_returns = drift + diffusion
         cumulative_log_returns = np.cumsum(log_returns,axis=1)
